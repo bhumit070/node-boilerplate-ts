@@ -7,7 +7,8 @@
     "start": "node .",
     "dev": "nodemon --files ./src/server.ts",
     "build": "tsc",
-    "postinstall": "yarn build"
+    "postinstall": "yarn build",
+    "dotenv-types": "npx dotenv-types-generator"
   },
   "dependencies": {
     "@prisma/client": "^4.4.0",
