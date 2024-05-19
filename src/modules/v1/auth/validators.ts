@@ -1,23 +1,15 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
-export interface ILoginSchema {
-	email: string,
-	password: string
-}
 
-export interface IRegisterSchema {
-	name: string,
-	email: string,
-	password: string
-}
-
-export const loginSchema = Joi.object({
-	email: Joi.string().email().required(),
-	password: Joi.string().required().min(8).max(30).alphanum()
+export const loginSchema = z.object({
+	email: z.string().email(),
+	password: z.string().min(8).max(30).regex(/^[a-zA-Z0-9]*$/)
 });
 
-export const registerSchema = Joi.object({
-	name: Joi.string().required(),
-	email: Joi.string().email().required(),
-	password: Joi.string().required().min(8).max(30).alphanum()
+export const registerSchema = z.object({
+	name: z.string().min(2),
+	...loginSchema.shape,
 });
+
+export type LoginSchema = z.infer<typeof loginSchema>;
+export type RegisterSchema = z.infer<typeof registerSchema>;

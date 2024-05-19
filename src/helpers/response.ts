@@ -1,5 +1,7 @@
 import { errorLogger, successLogger } from '../server/logger';
 import type { Response } from 'express';
+import { ZodError } from 'zod';
+
 interface IResponseGenerator {
 	status?: number,
 	error?: any,
@@ -33,8 +35,15 @@ function getStatusCode(error: { code?: number; statusCode?: number; status?: num
 }
 
 export function responseGenerator({ status, error, message, data = []}: IResponseGenerator) {
+	if(error instanceof ZodError) {
+		status = 422;
+		message =  'Invalid data provided',
+		data =  error.formErrors;
+	} else {
+		status = getStatusCode(error, status);
+	}
 	return {
-		status: getStatusCode(error, status),
+		status,
 		error: error ? true : false,
 		message: message ? message : 
 						 error ? error.message : 

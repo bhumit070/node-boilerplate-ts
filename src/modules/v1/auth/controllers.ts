@@ -1,8 +1,7 @@
-import { joiConfig  } from '../../../config';
 import { UserModel } from '../../../db/mongodb/models';
 import { authHelpers } from '../../../helpers';
 import { responseHelpers }  from '../../../helpers';
-import { loginSchema, registerSchema, ILoginSchema, IRegisterSchema } from './validators';
+import { loginSchema, registerSchema } from './validators';
 import { IUser } from '../../../db/mongodb/models/users.model';
 import type { Request, Response } from 'express';
 import { prisma } from '../../../db/sql';
@@ -11,7 +10,7 @@ const { CustomError, CustomResponse } = responseHelpers;
 
 export async function login(req: Request, res: Response) {
 	try {
-		const value: ILoginSchema = await loginSchema.validateAsync(req.body, joiConfig.defaultConfig);
+		const value = await loginSchema.parseAsync(req.body);
 
 		const user = await UserModel.findOne({ email: value.email }).lean();
 
@@ -33,7 +32,7 @@ export async function login(req: Request, res: Response) {
 
 export async function register(req: Request, res: Response) {
 	try {
-		const value: IRegisterSchema = await registerSchema.validateAsync(req.body, joiConfig.defaultConfig);
+		const value = await registerSchema.parseAsync(req.body);
 
 		const existingUser = await UserModel.findOne({ email: value.email }).lean();
 
@@ -53,7 +52,7 @@ export async function register(req: Request, res: Response) {
 
 export async function loginSQL(req: Request, res: Response) {
 	try {
-		const value: ILoginSchema = await loginSchema.validateAsync(req.body, joiConfig.defaultConfig);
+		const value = await loginSchema.parseAsync(req.body);
 
 		const user = await prisma.user.findFirst({
 			where: {
@@ -80,7 +79,7 @@ export async function loginSQL(req: Request, res: Response) {
 
 export async function registerSQL(req: Request, res: Response) {
 	try {
-		const value: IRegisterSchema = await registerSchema.validateAsync(req.body, joiConfig.defaultConfig);
+		const value = await registerSchema.parseAsync(req.body);
 
 		const existingUser: IUser | null = await prisma.user.findFirst({
 			where: {
