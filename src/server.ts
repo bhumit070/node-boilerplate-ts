@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-//import './db/mongodb';
-//import './db/redis';
+import './db/mongodb';
+import './db/redis';
 import './db/sql';
 
-import express, { Request, Response } from 'express';
+import express, { Response } from 'express';
 import http from 'http';
 import serverMiddlewares from './server/middlewares';
 import serverRoutes from './modules/routes';
@@ -16,18 +16,15 @@ import { responseHelpers } from './helpers';
 const app = express();
 const server = http.createServer(app);
 
-
 serverMiddlewares(app);
 serverRoutes(app);
-app.use(((req: Request, res: Response) => {
+app.use((_, res: Response) => {
   return new responseHelpers.CustomResponse(res).send({
     error: true,
     message: 'Route not found',
     status: 404,
   });
-}));
-//require('./socket')(server);
-
+});
 
 const PORT = process.env.PORT || 8000;
 
