@@ -12,6 +12,7 @@ import serverRoutes from './modules/routes';
 
 import { logger } from './server/logger';
 import { responseHelpers } from './helpers';
+import { errorHandler } from './helpers/handlers';
 
 const app = express();
 const server = http.createServer(app);
@@ -25,6 +26,7 @@ app.use((_, res: Response) => {
     status: 404,
   });
 });
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8000;
 
