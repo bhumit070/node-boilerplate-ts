@@ -7,7 +7,7 @@ export const prisma = new PrismaClient();
 prisma.$connect().then(() => {
 	logger.info('Connected to database via prisma 🔼.');
 })
-.catch((err) => {
+.catch((err: unknown) => {
 	errorLogger.error(err);
 });
 

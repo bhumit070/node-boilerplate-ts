@@ -8,7 +8,8 @@
     "dev": "nodemon --files ./src/server.ts",
     "build": "tsc",
     "postinstall": "yarn build",
-    "dotenv-types": "npx dotenv-types-generator"
+    "dotenv-types": "npx dotenv-types-generator",
+    "prisma:generate": "prisma generate --schema=./src/db/sql/prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^4.4.0",
@@ -38,6 +39,8 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
     "prisma": "^4.4.0",
+    "ts-node": "^10.9.2",
     "typescript": "^4.8.4"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

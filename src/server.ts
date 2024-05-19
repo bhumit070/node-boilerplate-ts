@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import './db/mongodb';
-import './db/redis';
+//import './db/mongodb';
+//import './db/redis';
 import './db/sql';
 
 import express from 'express';
