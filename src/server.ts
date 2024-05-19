@@ -5,12 +5,13 @@ dotenv.config();
 //import './db/redis';
 import './db/sql';
 
-import express from 'express';
+import express, { Request, Response } from 'express';
 import http from 'http';
 import serverMiddlewares from './server/middlewares';
 import serverRoutes from './modules/routes';
 
 import { logger } from './server/logger';
+import { responseHelpers } from './helpers';
 
 const app = express();
 const server = http.createServer(app);
@@ -18,6 +19,13 @@ const server = http.createServer(app);
 
 serverMiddlewares(app);
 serverRoutes(app);
+app.use(((req: Request, res: Response) => {
+  return new responseHelpers.CustomResponse(res).send({
+    error: true,
+    message: 'Route not found',
+    status: 404,
+  });
+}));
 //require('./socket')(server);
 
 
