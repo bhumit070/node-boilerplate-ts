@@ -9,7 +9,8 @@
     "build": "tsc",
     "postinstall": "yarn build",
     "dotenv-types": "npx dotenv-types-generator",
-    "prisma:generate": "prisma generate --schema=./src/db/sql/prisma/schema.prisma"
+    "prisma:generate": "prisma generate --schema=./src/db/sql/prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema=./src/db/sql/prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^4.4.0",
