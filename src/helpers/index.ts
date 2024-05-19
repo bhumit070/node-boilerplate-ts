@@ -1,7 +1,7 @@
-import * as _auth from './auth';
-import * as _mail from './mail';
-import * as _response from './response';
+import * as auth from './auth';
+import * as mail from './mail';
+import * as response from './response';
 
-export const authHelpers = _auth;
-export const mailHelpers = _mail;
-export const responseHelpers = _response;
+export const authHelpers = auth;
+export const mailHelpers = mail;
+export const responseHelpers = response;
