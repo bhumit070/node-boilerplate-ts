@@ -1,11 +1,11 @@
-import { joiConfig  } from '../../config';
-import { UserModel } from '../../db/mongodb/models';
-import { authHelpers } from '../../helpers';
-import { responseHelpers }  from '../../helpers';
+import { joiConfig  } from '../../../config';
+import { UserModel } from '../../../db/mongodb/models';
+import { authHelpers } from '../../../helpers';
+import { responseHelpers }  from '../../../helpers';
 import { loginSchema, registerSchema, ILoginSchema, IRegisterSchema } from './validators';
-import { IUser } from '../../db/mongodb/models/users.model';
+import { IUser } from '../../../db/mongodb/models/users.model';
 import type { Request, Response } from 'express';
-import { prisma } from '../../db/sql';
+import { prisma } from '../../../db/sql';
 
 const { CustomError, CustomResponse } = responseHelpers;
 

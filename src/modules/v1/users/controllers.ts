@@ -1,7 +1,7 @@
-import { UserModel } from '../../db/mongodb/models';
-import { redisClient , redisPublisher } from '../../db/redis';
-import { responseHelpers } from '../../helpers/index';
-import { prisma } from '../../db/sql';
+import { UserModel } from '../../../db/mongodb/models';
+import { redisClient , redisPublisher } from '../../../db/redis';
+import { responseHelpers } from '../../../helpers/index';
+import { prisma } from '../../../db/sql';
 import type { Request, Response } from 'express';
 const { CustomResponse } = responseHelpers;
 

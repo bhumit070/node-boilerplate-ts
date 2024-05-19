@@ -1,17 +1,8 @@
-import { Router, Request, Response, Application } from 'express';
-const router = Router();
+import { Router, Application } from 'express';
 import { constants } from '../../config';
-import { responseHelpers } from '../../helpers';
-import V1Routes from './v1.route';
+import v1Routes from '../v1';
+const router = Router();
 
-router.use(constants.API_VERSION_V1, V1Routes);
-
-router.use((req: Request, res: Response) => {
-	return new responseHelpers.CustomResponse(res).send({
-		error: true,
-		message: 'Route not found',
-		status: 404,
-	});
-});
+router.use(constants.API_VERSION_V1, v1Routes);
 
 export default (app: Application) => app.use('/api', router);

@@ -1,5 +1,5 @@
 import { Router } from 'express'; 
-import { commonMiddlewares } from '../common';
+import { commonMiddlewares } from '../../common';
 import * as userController from './controllers';
 
 const router = Router();
