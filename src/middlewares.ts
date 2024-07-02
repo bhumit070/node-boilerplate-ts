@@ -25,18 +25,7 @@ export function registerMiddlewares(app: Application) {
         credentials: true,
       })
     )
-    .use(
-      multer({
-        dest: 'docker/uploads',
-        fileFilter: (_req, file, cb) => {
-          if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, true);
-          } else {
-            cb(new Error('Invalid file type'));
-          }
-        },
-      }).single('file')
-    )
+    .use(multer().single('file'))
     .disable('x-powered-by');
 }
 
