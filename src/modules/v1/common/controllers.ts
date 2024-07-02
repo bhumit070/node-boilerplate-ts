@@ -31,9 +31,10 @@ export function handleApiError(
   if (error instanceof ZodError) {
     payload.code = 422;
     payload.data.message = `Invalid data provided.`;
-    let data = {};
+    let data: Record<string, string> = {};
     for (const key in error.formErrors.fieldErrors) {
-      data[key] = error.formErrors.fieldErrors[key]?.join(', ');
+      data[key] =
+        error.formErrors.fieldErrors[key]?.join(', ') || 'Invalid input.';
     }
     payload.data.data = data;
   }
