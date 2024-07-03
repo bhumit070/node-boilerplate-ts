@@ -4,18 +4,42 @@ import { Router } from 'express';
 
 const router = Router();
 
-const files = fs.readdirSync(__dirname);
+const isDirScanned: Record<string, boolean> = {};
+const routesFileName = 'routes.ts';
+function registerRoutes(currentDir = __dirname) {
+  const files = fs.readdirSync(currentDir);
 
-files.forEach((fileOrDir) => {
-  const isDir = fs.statSync(path.join(__dirname, fileOrDir)).isDirectory();
+  for (let i = 0; i < files.length; i += 1) {
+    const name = files[i];
 
-  if (!isDir) {
-    return;
+    const fullPath = path.join(currentDir, name);
+    //console.log(fullPath);
+
+    const stats = fs.statSync(fullPath);
+
+    if (!stats.isDirectory()) {
+      continue;
+    }
+
+    const routesFilePath = path.join(fullPath, routesFileName);
+
+    const isRoutesFileExistOnThisDirectory = fs.existsSync(routesFilePath);
+
+    if (isRoutesFileExistOnThisDirectory) {
+      let prefix = routesFilePath
+        .replace(__dirname, '')
+        .replace(routesFileName, '')
+        .slice(0, -1);
+
+      console.log({ prefix, routesFilePath });
+
+      router.use(prefix, require(routesFilePath).default);
+    }
+
+    registerRoutes(path.join(currentDir, name));
   }
+}
 
-  const route = require(`./${fileOrDir}`);
-
-  router.use(`/${fileOrDir}`, route.default);
-});
+registerRoutes();
 
 export default router;

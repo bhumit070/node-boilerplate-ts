@@ -15,3 +15,11 @@
 - Object(s) Validation using zod
 - Error Handling
 - Express Req object extend with typescript support
+
+## Routing
+
+- The base path for api will be `api`.
+- Any folder you put inside modules folder that container `routes.ts` file will be added to express router stack and that will be route for the api as well.
+- So suppose if you make folder something like `modules/v1/file/routes.ts` then all the routes defined in that `routes.ts` file will be registered and will be available at `domain/api/modules/v1/file`.
+- So think like routing as a file based routing.
+- You must export router as default export from `routes.ts` file to make this happen.
