@@ -23,3 +23,9 @@
 - So suppose if you make folder something like `modules/v1/file/routes.ts` then all the routes defined in that `routes.ts` file will be registered and will be available at `domain/api/modules/v1/file`.
 - So think like routing as a file based routing.
 - You must export router as default export from `routes.ts` file to make this happen.
+
+## Error handling
+
+- You can alway use try catch in your controllers to handle errors by your self, but here I have used different approach.
+- Just wrap your any controller/middleware that receives express's `req,res` object wrap them in `PromiseHandler` function and this will handle the rest of the stuff.
+- Also you can create custom errors in error folder as per your requirement and handle it in `handleApiError` according the way you want.
