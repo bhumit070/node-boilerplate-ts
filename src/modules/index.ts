@@ -13,7 +13,6 @@ function registerRoutes(currentDir = __dirname) {
     const name = files[i];
 
     const fullPath = path.join(currentDir, name);
-    //console.log(fullPath);
 
     const stats = fs.statSync(fullPath);
 
@@ -30,8 +29,6 @@ function registerRoutes(currentDir = __dirname) {
         .replace(__dirname, '')
         .replace(routesFileName, '')
         .slice(0, -1);
-
-      console.log({ prefix, routesFilePath });
 
       router.use(prefix, require(routesFilePath).default);
     }

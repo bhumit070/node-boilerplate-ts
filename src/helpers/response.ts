@@ -1,35 +1,34 @@
 import { Response } from 'express';
 
-export type CustomResponseData = {
-  message?: string;
-  data?: unknown;
-  error?: boolean;
-};
-
 export type CustomResponse = {
   res: Response;
   code?: number;
-  data?: CustomResponseData;
+  data?: unknown;
+  message?: string;
+  error?: boolean;
 };
 
-function handleData(data: CustomResponse, isError: boolean = false) {
+function handleData(
+  data: Omit<CustomResponse, 'res'>,
+  isError: boolean = false
+) {
   if (!data.data) {
     data.data = {};
   }
 
-  data.data.message = data.data?.message || (isError ? 'Error' : 'Success');
-  data.data.error = isError;
+  data.message = data?.message || (isError ? 'Error' : 'Success');
+  data.error = isError;
 }
 
-function success(data: CustomResponse) {
+function success({ res, ...data }: CustomResponse) {
   data.code = data.code || 200;
   handleData(data);
-  return data.res.status(data.code).json(data.data);
+  return res.status(data.code).json(data.data);
 }
-function error(data: CustomResponse) {
+function error({ res, ...data }: CustomResponse) {
   data.code = data.code || 500;
   handleData(data, true);
-  return data.res.status(data.code).json(data.data);
+  return res.status(data.code).json(data);
 }
 
 export default {
