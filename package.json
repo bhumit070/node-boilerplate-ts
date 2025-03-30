@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "tsx src/index.ts",
     "build": "tsc"
   },
   "keywords": [],
@@ -32,7 +32,7 @@
     "@types/multer": "^1.4.11",
     "@types/nodemailer": "^6.4.15",
     "nodemon": "^3.1.4",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.5.3"
   }
 }
